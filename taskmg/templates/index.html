@@ -1,0 +1,17 @@
+
+{% include 'base.html' %}
+
+<h1>Index render</h1>
+
+{% for task in tasks %}
+
+    <p>{{ task.id }}</p>
+
+    <p>{{ task.title }}</p>
+    <br>
+
+    <p>{{ task.content }}</p>
+    <br>
+
+
+{% endfor %}
