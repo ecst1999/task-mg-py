@@ -1,17 +1,22 @@
+{% load static %}
 
-{% include 'base.html' %}
+<html>
 
-<h1>Index render</h1>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    </head>
 
-{% for task in tasks %}
+    {% include 'base.html' %}
 
-    <p>{{ task.id }}</p>
+    <h1>Index render</h1>
 
-    <p>{{ task.title }}</p>
+
     <br>
 
-    <p>{{ task.content }}</p>
+    <a href="{% url 'create-task' %}">Create a task</a>
+
     <br>
 
+    <a href="{% url 'view-tasks' %}">View tasks</a>
 
-{% endfor %}
+</html>
