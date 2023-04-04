@@ -1,3 +1,25 @@
-{% include 'base.html' %}
+{% load static %}
 
-<h1>Register page</h1>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width-device-width, initial-scale=1, maximum-scale=1"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    </head>
+
+    {% include 'base.html' %}
+
+    <h1>Register page</h1>
+
+
+    <form method="POST" autocomplete="off">
+
+        {% csrf_token %}
+
+        {{form.as_p}}
+
+        <input type="submit" value="Submit">
+
+    </form>
+</html>    

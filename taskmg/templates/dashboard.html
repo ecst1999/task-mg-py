@@ -11,16 +11,8 @@
 
     {% include 'base.html' %}
 
-    <h1>Login page</h1>
+    <h1>This is our dashboard!</h1>
 
+    <a href="{% url 'user-logout' %}">Logout</a>
 
-    <form method="POST" autocomplete="off">
-
-        {% csrf_token %}
-
-        {{form.as_p}}
-
-        <input type="submit" value="Submit">
-
-    </form>
 </html>

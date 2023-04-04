@@ -2,27 +2,23 @@
 from django.urls import path
 from . import views
 
-urlpatterns = [
+urlpatterns = [        
+
+    path('', views.home, name=''),
+
+    # ----------------------Register a user--------------------------#
+
+    path('register', views.register, name='register'),
+
+    # ----------------------Login a user--------------------------#
+
+    path('my-login', views.my_login, name='my-login'),
+
+    # ----------------------Dashboard a user--------------------------#
+
+    path('dashboard', views.dashboard, name='dashboard'),
+
+    # ----------------------Logout a user--------------------------#
     
-    path('register', views.register),
-
-    path('my-login', views.my_login),
-
-    path('', views.home),
-
-    # ------------------ CRUD operations --------------------- #
-
-    # - CREATE task
-    path('create-task', views.createTask, name='create-task'),
-
-    # - READ task
-    path('view-tasks', views.viewTasks, name='view-tasks'),
-
-    # - UPDATE task
-    path('update-task/<str:pk>/', views.updateTask, name='update-task'),
-
-    # - DELETE task
-
-    path('delete-task/<str:pk>/', views.deleteTask, name='delete-task'),
-
+    path('user-logout', views.user_logout, name='user-logout'),
 ]
