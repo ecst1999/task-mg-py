@@ -16,7 +16,7 @@
 
     <div class="container bg-white shadow-md p-5 form-layout">
 
-        <h3>Register page</h3>
+        <h3>Create task!</h3>
 
         <hr>
 
@@ -24,23 +24,12 @@
 
             {% csrf_token %}
 
-            {{form.username|as_crispy_field}}
+            {{form|crispy}}
 
-            <br> <br>
+            <br>
 
-            {{form.email|as_crispy_field}}
 
-            <br> <br>
-
-            {{form.password1|as_crispy_field}}
-
-            <br> <br>
-
-            {{form.password2|as_crispy_field}}
-
-            <a class="btn btn-secondary navbar-btn" type="button" href="{% url 'my-login' %}">Login</a>
-
-            <input class="btn btn-primary navbar-btn" type="submit" value="Register">
+            <input class="btn btn-primary navbar-btn" type="submit" value="Save">
 
         </form>
     </div>

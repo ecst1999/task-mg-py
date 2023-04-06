@@ -11,8 +11,24 @@
 
     {% include 'base.html' %}
 
-    <h1>This is our dashboard!</h1>
+    <br>
 
-    <a href="{% url 'user-logout' %}">Logout</a>
+    <div class="container bg-white shadow-md p-5 form-layout">
+
+        <h3>This is our dashboard!</h3>
+        
+        <hr>
+
+        <a href="{% url 'create-task' %}">Create a task</a>
+
+        <hr>
+
+        <a href="{% url 'view-tasks' %}">View tasks</a>
+
+        <hr>
+
+        <a href="{% url 'user-logout' %}">Logout</a>
+
+    </div>
 
 </html>
