@@ -1,13 +1,17 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
-from .forms import CreateUserForm, LoginForm, CreateTaskForm
+from .forms import CreateUserForm, LoginForm, CreateTaskForm, UpdateUserForm, UpdateProfileForm
+from django.contrib.auth.models import User
 
 from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 
-from .models import Task
+from .models import Task, Profile
+
+# - Import Django Messages (notifications)
+from django.contrib import messages
 
 # Create your views here.
 
@@ -27,9 +31,15 @@ def register(request):
 
         if form.is_valid():
 
+            current_user = form.save(commit=False)
+
             form.save()
 
-            return HttpResponse('The user was registered!')
+            profile = Profile.objects.create(user=current_user)
+            
+            messages.success(request, 'User registration was successful!')
+
+            return redirect('my-login')
         
 
     context = {'form': form}
@@ -66,8 +76,12 @@ def my_login(request):
 # Dashboard a user
 @login_required(login_url='my-login')
 def dashboard(request):
+
+    profile = Profile.objects.get(user=request.user)
+
+    context = {'profile': profile}
     
-    return render(request, 'profile/dashboard.html')
+    return render(request, 'profile/dashboard.html', context=context)
 
 # Logout a user
 def user_logout(request):
@@ -146,3 +160,52 @@ def deleteTask(request, pk):
         return redirect('view-tasks')
     
     return render(request, 'profile/delete-task.html')
+
+# - Profile managment
+@login_required(login_url='my-login')
+def profileManagment(request):
+    
+    user_form = UpdateUserForm(instance=request.user)
+
+    profile = Profile.objects.get(user=request.user)
+
+    form2 = UpdateProfileForm(instance=profile)
+    
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+
+        form2 = UpdateProfileForm(request.POST, request.FILES, instance=profile)
+
+        if user_form.is_valid():
+
+            user_form.save()
+
+            messages.success(request, 'Se guardo los cambios con exito')
+
+            return redirect('dashboard')    
+        
+        if form2.is_valid():
+
+            form2.save()
+
+            messages.success(request, 'Se cambio la imagen con exito')
+
+            return redirect('dashboard')  
+
+    context = {'user_form': user_form, 'form2': form2}
+
+    return render(request, 'profile\profile-managment.html', context=context)
+
+@login_required(login_url='my-login')
+def deteleAccount(request):
+    
+    
+    if request.method == 'POST':
+
+        deleteUser = User.objects.get(username=request.user)
+
+        deleteUser.delete()
+
+        return redirect('')
+    
+    return render(request, 'profile\delete-account.html')

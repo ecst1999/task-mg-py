@@ -34,6 +34,14 @@ urlpatterns = [
     
     path('delete-task/<str:pk>/', views.deleteTask, name='delete-task'),
 
+    # ----------------------PROFILE MANAGMENT--------------------------#
+
+    path('profile-managment', views.profileManagment, name='profile-managment'),
+
+    # ----------------------DELETE USER--------------------------#
+    
+    path('delete-account', views.deteleAccount, name='delete-account'),
+
     # ----------------------Logout a user--------------------------#
     
     path('user-logout', views.user_logout, name='user-logout'),

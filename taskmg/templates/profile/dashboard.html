@@ -13,21 +13,29 @@
 
     <br>
 
+    {% for msg in messages %}
+
+        {{msg}}
+
+    {% endfor %}
+
+    <br>
+
     <div class="container bg-white shadow-md p-5 form-layout">
 
         <h3>This is our dashboard!</h3>
         
         <hr>
 
-        <a href="{% url 'create-task' %}">Create a task</a>
+        <p>Welcome, to your personal task manager application!</p>
 
-        <hr>
+        <br>
 
-        <a href="{% url 'view-tasks' %}">View tasks</a>
+        <img width="300" src="{{profile.profile_pic.url}}">
 
-        <hr>
-
-        <a href="{% url 'user-logout' %}">Logout</a>
+       <br>
+       
+       <a href="{% url 'profile-managment' %}">Profile manager</a>
 
     </div>
 

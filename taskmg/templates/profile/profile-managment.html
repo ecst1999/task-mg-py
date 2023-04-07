@@ -1,0 +1,65 @@
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width-device-width, initial-scale=1, maximum-scale=1"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    </head>
+
+    {% include 'base.html' %}
+    
+    <br>
+
+    <div class="container bg-white shadow-md p-5 form-layout">
+
+        <h3>Update your profile!</h3>
+
+        <hr>
+
+        <form method="POST" autocomplete="off">
+
+            {% csrf_token %}
+
+            {{user_form.username|as_crispy_field}}
+
+            <br>
+
+            {{user_form.email|as_crispy_field}}
+
+            <br>
+
+
+            <input class="btn btn-primary navbar-btn" type="submit" value="Save">
+
+        </form>
+
+        <div class="container bg-white shadow-md p-5 form-layout">
+
+            <h3>Update your profile picture</h3>
+
+            <form method="POST" autocomplete="off" enctype="multipart/form-data">
+
+                {% csrf_token %}
+    
+                {{form2|crispy}}
+
+    
+                <br>    
+                    
+                <input class="btn btn-primary navbar-btn" type="submit" value="Update your profile picture">
+    
+            </form>
+
+        </div>
+
+        <br>
+        <div class="container bg-white shadow-md p-5 form-layout">
+            <a class="btn btn-danger" href="{% url 'delete-account' %}">Delete your account</a>            
+        </div>
+
+    </div>
+</html>    
