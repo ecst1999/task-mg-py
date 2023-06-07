@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Tasks{% endblock  %}
+
+{% block content %}
+
+    
+    <div class="row">
+        {% for task in tasks %}
+    
+        
+            <div class="col-3 mr-3 ml-3">
+                <div class="card" style="width: 18rem;">        
+                    <div class="card-body">
+                    <h5 class="card-title">{{task.title}}</h5>
+                    <p class="card-text">{{task.content}}</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+
+        {% endfor %}
+        
+    </div>
+    
+{% endblock  %}

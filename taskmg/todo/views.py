@@ -9,8 +9,6 @@ from django.contrib.auth.decorators import login_required
 
 from .models import Task
 
-# Create your views here.
-
 def home(request):
 
     return render(request, 'index.html')
@@ -62,6 +60,16 @@ def my_login(request):
     context = {'form': form}
 
     return render(request, 'my_login.html', context=context)
+
+#------------------------------------TASKS---------------------------------------#
+@login_required(login_url='my-login')
+def task_list(request):
+
+    tasks = Task.objects.filter(user = request.user).all()
+
+    return render(request, 'task/task_list.html', {
+        'tasks': tasks
+    })
 
 # Dashboard a user
 @login_required(login_url='my-login')

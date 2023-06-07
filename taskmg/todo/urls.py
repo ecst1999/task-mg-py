@@ -18,6 +18,10 @@ urlpatterns = [
 
     path('dashboard', views.dashboard, name='dashboard'),
 
+    # --------------------------------TASKS------------------------------#
+    
+    # View Tasks
+    path('tasks', views.task_list, name='tasks'),
 
     # ----------------------CREATE TASK--------------------------#
     path('create-task', views.createTask, name='create-task'),
