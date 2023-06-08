@@ -1,6 +1,12 @@
 from django.contrib import admin
 
-from .models import Task
+from .models import Task, Category, Status, Note
 # Register your models here.
 
 admin.site.register(Task)
+
+admin.site.register(Category)
+
+admin.site.register(Status)
+
+admin.site.register(Note)

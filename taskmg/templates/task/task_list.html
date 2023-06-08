@@ -3,18 +3,39 @@
 {% block title %}Tasks{% endblock  %}
 
 {% block content %}
-
     
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a class="btn btn-info" href="{% url 'task-create' %}">Add Task</a>
+            </li>
+        </ol>
+    </nav>
+
+    {% if messages %}
+        {% for message in messages %}            
+            <div class="alert alert-success" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
     <div class="row">
+        
         {% for task in tasks %}
     
         
             <div class="col-3 mr-3 ml-3">
-                <div class="card" style="width: 18rem;">        
+                <div class="card" style="width: 18rem;">   
+                    <div class="card-header text-center">
+                        {{task.title}}
+                    </div>
                     <div class="card-body">
-                    <h5 class="card-title">{{task.title}}</h5>
-                    <p class="card-text">{{task.content}}</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <p class="card-text">{{task.content}}</p>
+                        <a href="{% url 'task-detail' task.id %}" class="btn btn-primary">Task detail</a>
+                    </div>
+                    <div class="card-footer text-center text-muted">
+                        {{task.deadline}}
                     </div>
                 </div>
             </div>

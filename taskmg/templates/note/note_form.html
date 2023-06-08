@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Note form{% endblock  %}
+
+{% block content %}
+
+    <h1>Form</h1>
+
+    <form method="POST" autocomplete="off" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        {{form.as_p}}
+
+        <button class="btn btn-primary">Save Note</button>
+    </form>
+{% endblock  %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}{{task.title}}{% endblock  %}
+
+{% block content %}
+    <div class="jumbotron">
+        <h1 class="display-4">{{task.title}}</h1>
+        <p class="lead">{{task.content}}</p>
+        <hr class="my-4">
+        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+        <a class="btn btn-primary btn-lg" href="{% url 'task-edit' task.id %}" role="button">Edit task</a>
+        <a class="btn btn-danger btn-lg" onclick="deleteTask()" crole="button">Delete task</a>
+    </div>
+
+    <script>
+        function deleteTask () {
+            Swal.fire({
+                title: '<strong>Are you sure to delete the task?</strong>',
+                icon: 'info',
+                html:
+                  '<a href="{% url 'task-delete' task.id %}" class="btn btn-danger">Yes, Delete!</a>',
+                showCloseButton: true,
+                showCancelButton: false,
+                showConfirmButton: false,
+                focusConfirm: false,                
+            });
+        }
+    </script>
+{% endblock  %}

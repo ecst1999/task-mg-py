@@ -4,12 +4,18 @@ from django.contrib.auth.models import User
 
 class Category(models.Model):
 
+    def __str__(self) -> str:
+        return self.name
+
     name = models.CharField(max_length=100, null=False)
     description = models.TextField(null=True)
     state = models.BooleanField(default=True)
 
 class Status(models.Model):
 
+    def __str__(self):
+        return self.description
+        
     description = models.TextField(null=False)
     color = models.CharField(max_length=50, null=False)
     state = models.BooleanField(default=True)
@@ -24,8 +30,9 @@ class Task(models.Model):
     deadline = models.DateTimeField(null=True)
     icon = models.CharField(max_length=25, null=True)
     priority = models.CharField(max_length=250, default="Baja")
-    state = models.ForeignKey(Status, on_delete=models.CASCADE, null=True)
-    files = models.FileField(null=True, blank=True)
+    state = models.BooleanField(default=True)
+    status = models.ForeignKey(Status, on_delete=models.CASCADE, null=True)
+    files = models.FileField(upload_to='uploads/tasks', null=True, blank=True)
     user = models.ForeignKey(User, max_length=10, on_delete=models.CASCADE, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
 
@@ -57,7 +64,8 @@ class Note(models.Model):
     content = models.CharField(max_length=1000, null=True)
     tags = models.CharField(max_length=100)
     comment = models.CharField(max_length=500)
-    files = models.FileField(null=True, blank=True)
+    files = models.FileField(upload_to='uploads/notes', null=True, blank=True)
+    state = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now=True)
 

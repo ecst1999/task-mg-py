@@ -18,27 +18,38 @@ urlpatterns = [
 
     path('dashboard', views.dashboard, name='dashboard'),
 
+    
+    # ----------------------Logout a user--------------------------#
+    
+    path('user-logout', views.user_logout, name='user-logout'),
+
     # --------------------------------TASKS------------------------------#
     
     # View Tasks
     path('tasks', views.task_list, name='tasks'),
 
-    # ----------------------CREATE TASK--------------------------#
-    path('create-task', views.createTask, name='create-task'),
+    # Task detail
+    path('task/<str:pk>', views.task_detail, name='task-detail'),
 
-    # ----------------------READ TASK--------------------------#
+    # Task create
+    path('task-create', views.task_create, name='task-create'),
 
-    path('view-tasks', views.viewTasks, name='view-tasks'),
+    # Task edit
+    path('tast-edit/<str:pk>', views.task_edit, name='task-edit'),
 
-    # ----------------------UPDATE TASK--------------------------#
+    # Task delete 
+    path('task-delete/<str:pk>', views.task_delete, name='task-delete'),
 
-    path('update-task/<str:pk>/', views.updateTask, name='update-task'),
 
-    # ----------------------DELETE TASK--------------------------#
-    
-    path('delete-task/<str:pk>/', views.deleteTask, name='delete-task'),
+    # --------------------------------NOTES------------------------------#
 
-    # ----------------------Logout a user--------------------------#
-    
-    path('user-logout', views.user_logout, name='user-logout'),
+    # View Notes
+    path('notes', views.note_list, name='notes'),
+
+    # Note create
+    path('note-create', views.note_create ,name='note-create'),
+
+    # Note Detail
+    path('note/<str:pk>', views.note_detail, name='note-detail'),
+
 ]
