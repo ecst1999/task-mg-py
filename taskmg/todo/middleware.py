@@ -1,14 +1,13 @@
 from .models import Notification
 
 def get_notifications(request):
-    notifications = Notification.objects.filter(user = request.user).all()
 
-    if notifications.__len__ == 0:
+    if request.user.is_authenticated:
+        notifications = Notification.objects.filter(user = request.user).all()
+
         return {
-            'notifications': ''
+            'notifications': notifications
         }
-
     return {
-        'notifications': notifications
+        
     }
-    
