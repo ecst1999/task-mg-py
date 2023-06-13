@@ -1,5 +1,4 @@
 {% load static %}
-
 <html>
 
     <head>
@@ -7,6 +6,7 @@
         <meta name="viewport" content="width-device-width, initial-scale=1, maximum-scale=1"/>
         <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title>{% block title %}{% endblock %} | TaskMg</title>      
     </head>    
 
@@ -70,6 +70,10 @@
         
         
                     &nbsp;     &nbsp;     &nbsp; 
+
+                    {% include 'notification/notifications.html' %}
+
+                    &nbsp;     &nbsp;     &nbsp; 
         
         
                     <li class="nav-item">
@@ -84,7 +88,7 @@
         
                     <li class="nav-item">
         
-                    <a class="btn btn-primary navbar-btn" type="button" href="{% url 'my-login' %}">Categories</a>
+                    <a class="btn btn-primary navbar-btn" type="button" href="{% url 'categories' %}">Categories</a>
         
                     </li>
         
@@ -144,6 +148,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
 
     </script>
+
+    {% block scripts %}{% endblock  %}
 
 
 </html>

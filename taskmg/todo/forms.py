@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.forms.widgets import PasswordInput, TextInput
 from django import forms
-from .models import Task, Note
+from .models import Task, Note, Category
 
 PRIORITY_CHOICES = [
     ('high', 'High'),
@@ -88,6 +88,21 @@ class NoteForm(forms.ModelForm):
                 'class': 'form-control'
             }),
             'files': forms.FileInput(attrs={
+                'class': 'form-control'
+            })
+        }
+
+class CategoryForm(forms.ModelForm):
+
+    class Meta: 
+        model = Category
+        fields = ['name', 'description',]
+        exclude = ['user', 'state',]
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'description': forms.Textarea(attrs={
                 'class': 'form-control'
             })
         }

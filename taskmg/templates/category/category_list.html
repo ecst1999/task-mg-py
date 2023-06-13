@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Categories{% endblock  %}
+
+{% block content %}
+    <h1>Categories</h1>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a class="btn btn-info" href="{% url 'category-create' %}">Add Category</a>
+            </li>
+        </ol>
+    </nav>
+
+    {% if messages %}
+        {% for message in messages %}            
+            <div class="alert alert-success" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{category.name}}</td>
+                    <td>{{category.description}}</td>
+                    <td>
+                        <a class="btn btn-primary" href="{% url 'category-edit' category.id %}">                                
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                          
+                        <a class="btn btn-danger" onclick="deleteNote({{category.id}})">
+                            <i class="fa fa-trash"></i>                                
+                        </a> 
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+      </table>      
+{% endblock  %}
+
+{% block scripts %}
+
+    <script>
+        function deleteNote (id) {
+            Swal.fire({
+                title: '<strong>Are you sure to delete the Category?</strong>',
+                icon: 'info',
+                html:
+                    `<a href='category-delete/${id}' class='btn btn-danger'>Yes, Delete!</a>`,
+                showCloseButton: true,
+                showCancelButton: false,
+                showConfirmButton: false,
+                focusConfirm: false,                
+            });
+        }
+    </script>
+{% endblock  %}

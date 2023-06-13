@@ -12,13 +12,17 @@
         <a class="btn btn-danger btn-lg" onclick="deleteTask()" crole="button">Delete task</a>
     </div>
 
+    
+{% endblock  %}
+
+{% block scripts %}
     <script>
         function deleteTask () {
             Swal.fire({
                 title: '<strong>Are you sure to delete the task?</strong>',
                 icon: 'info',
                 html:
-                  '<a href="{% url 'task-delete' task.id %}" class="btn btn-danger">Yes, Delete!</a>',
+                '<a href="{% url 'task-delete' task.id %}" class="btn btn-danger">Yes, Delete!</a>',
                 showCloseButton: true,
                 showCancelButton: false,
                 showConfirmButton: false,

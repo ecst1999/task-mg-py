@@ -10,6 +10,7 @@ class Category(models.Model):
     name = models.CharField(max_length=100, null=False)
     description = models.TextField(null=True)
     state = models.BooleanField(default=True)
+    user = models.ForeignKey(User, max_length=10, on_delete=models.CASCADE, null=True)    
 
 class Status(models.Model):
 
@@ -38,6 +39,10 @@ class Task(models.Model):
 
 
 class Notification(models.Model):
+
+    def __str__(self):
+        return self.notification
+    
 
     notification = models.CharField(max_length=150, null=False)
     type_notification = models.CharField(max_length=100, null=False)

@@ -6,12 +6,46 @@
 {% block content %}
 
     <div class="col-4">
-        <div class="sticky-note">
-            <div class="sticky-note-header">{{note.title}}<button class="btn btn-danger aling-rigth">Delete</button></div>
+        <div class="sticky-note">            
+            <div class="sticky-note-header">
+                <div class="row">
+                    <div class="col-4">
+                        {{note.title}}
+                    </div>
+                    <div class="col-3">
+                    </div>
+                    <div class="col-5">     
+                            <a class="btn btn-primary" href="{% url 'note-edit' note.id %}">                                
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                              
+                            <a class="btn btn-danger" onclick="deleteNote()">
+                                <i class="fa fa-trash"></i>                                
+                            </a>                              
+                    </div>
+                </div>
+            </div>
             <div class="sticky-note-body">
                 <p>{{note.content}}</p>
             </div>
         </div>
     </div>
 
+{% endblock  %}
+
+{% block scripts %}
+<script>
+    function deleteNote () {
+        Swal.fire({
+            title: '<strong>Are you sure to delete the Note?</strong>',
+            icon: 'info',
+            html:
+              '<a href="{% url 'note-delete' note.id %}" class="btn btn-danger">Yes, Delete!</a>',
+            showCloseButton: true,
+            showCancelButton: false,
+            showConfirmButton: false,
+            focusConfirm: false,                
+        });
+    }
+</script>
 {% endblock  %}

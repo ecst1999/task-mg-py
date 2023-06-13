@@ -46,10 +46,29 @@ urlpatterns = [
     # View Notes
     path('notes', views.note_list, name='notes'),
 
-    # Note create
-    path('note-create', views.note_create ,name='note-create'),
-
     # Note Detail
     path('note/<str:pk>', views.note_detail, name='note-detail'),
 
+    # Note create
+    path('note-create', views.note_create ,name='note-create'),
+
+    # Note edit
+    path('note-edit/<str:pk>', views.note_edit, name='note-edit'),
+
+    # Note Delete
+    path('note-detele/<str:pk>', views.note_delete ,name='note-delete'),
+
+    # --------------------------------CATEGORIES------------------------------#
+
+    # View Categories
+    path('categories', views.category_list, name='categories'),
+
+    # Category Detail 
+    path('category-edit/<str:pk>', views.category_edit, name='category-edit'),
+
+    # Category create
+    path('category-create', views.category_create, name='category-create'),
+
+    # Category delete
+    path('category-delete/<str:pk>', views.category_delete, name='category-delete'),
 ]
