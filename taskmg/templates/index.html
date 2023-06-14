@@ -14,7 +14,7 @@
         
         {% if not request.user.is_authenticated %}      
           <a class="btn btn-outline-primary" type="button" href="{% url 'register' %}">Register</a>
-          <a class="btn btn-outline-primary" type="button" href="{% url 'register' %}">Login</a>
+          <a class="btn btn-outline-primary" type="button" href="{% url 'my-login' %}">Login</a>
         {% endif %}
       </div>
                       

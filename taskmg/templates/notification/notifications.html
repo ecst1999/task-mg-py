@@ -5,7 +5,9 @@
     </button>
     <div class="dropdown-menu">        
         {% for noti in notifications %}            
-            <a class="dropdown-item" href="#">{{noti.notification}}</a>
+            <a class="dropdown-item" href="{% url 'notification-detail' noti.id %}">{{noti.notification}}</a>
         {% endfor %}
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="{% url 'notifications' %}">View all</a>
     </div>
 </div>

@@ -2,13 +2,13 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib import messages
 
-from .forms import CreateUserForm, LoginForm, TaskForm, NoteForm, CategoryForm
+from .forms import CreateUserForm, LoginForm, TaskForm, NoteForm, CategoryForm, SubtaskForm
 
 from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 
-from .models import Task, Note, Category
+from .models import Task, Note, Category, Notification, Subtask
 
 def home(request):
 
@@ -56,19 +56,12 @@ def my_login(request):
 
                 auth.login(request, user)
 
-                return redirect("dashboard")
+                return redirect("")
     
     context = {'form': form}
 
     return render(request, 'my_login.html', context=context)
 
-
-
-# Dashboard a user
-@login_required(login_url='my-login')
-def dashboard(request):
-    
-    return render(request, 'profile/dashboard.html')
 
 # Logout a user
 def user_logout(request):
@@ -77,7 +70,30 @@ def user_logout(request):
     
     return redirect("")
 
+#------------------------------------NOTIFICATIONS---------------------------------------#
+
+@login_required(login_url='my-login')
+def notifications(request):
+    notifications = Notification.objects.filter(user=request.user).all()
+
+    return render(request, 'notification/notification_list.html', {
+        'notifications': notifications
+    })
+
+@login_required(login_url='my-login')
+def notification_detail(request, pk):
+    notification = Notification.objects.filter(user = request.user).get(pk=pk)
+
+    notification.is_readead = True
+
+    notification.save()
+
+    return render(request, 'notification/notification_detail.html', {
+        'notification': notification
+    })
+
 #------------------------------------TASKS---------------------------------------#
+
 @login_required(login_url='my-login')
 def task_list(request):
 
@@ -148,6 +164,72 @@ def task_delete(request, pk):
 
     messages.success(request, "The task was deleted!")
     return redirect('tasks')
+
+#------------------------------------SUBTASKS---------------------------------------#
+@login_required(login_url='my-login')
+def subtask_create(request, pk):
+
+    form = SubtaskForm()
+
+    if request.method == 'POST':
+        form = SubtaskForm(request.POST)
+        
+        if form.is_valid():
+            subtask = form.save(commit=False)
+            subtask.task = Task.objects.filter(user = request.user).get(pk=pk)
+            subtask.save()
+
+            messages.success(request, "The subtask was saved!")
+
+            return redirect('task-detail', pk)
+
+
+    return render(request, 'subtask/subtask_form.html', {
+        'form': form
+    })
+
+@login_required(login_url='my-login')
+def subtask_edit(request, pk, pkT):
+
+    subtask = Subtask.objects.filter(task = pkT).get(pk=pk)
+
+    form = SubtaskForm(instance=subtask)
+
+    if request.method == 'POST':
+        form = SubtaskForm(request.POST, instance=subtask)
+
+        if form.is_valid():
+            form.save()
+
+            messages.success(request, 'The Changes was saved!')
+
+            return redirect('task-detail', pkT)            
+
+    return render(request, 'subtask/subtask_form.html', {
+        'form': form
+    })
+
+@login_required(login_url='my-login')
+def subtask_delete(request, pk, pkT):
+    
+    subtask = Subtask.objects.filter(task = pkT).get(pk=pk)
+
+    subtask.state = False
+
+    subtask.save()
+
+    messages.success(request, 'The subtask was deleted!')
+
+    return redirect('task-detail', pkT)
+
+@login_required(login_url='my-login')
+def subtask_detail(request, pk, pkT):
+
+    subtask = Subtask.objects.filter(task = pkT).get(pk=pk)
+
+    return render(request, 'subtask/subtask_detail.html', {
+        'subtask': subtask
+    })
 
 
 #------------------------------------NOTES---------------------------------------#

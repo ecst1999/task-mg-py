@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}{{subtask.name}}{% endblock  %}
+
+{% block content %}
+    <h1>{{subtask.name}}</h1>
+
+    <a href="{% url 'subtask-edit' subtask.task.id subtask.id %}" class="btn btn-primary">Edit Subtask</a>
+    <a onclick="deleteSubtask()" class="btn btn-danger">Delete Subtask</a>
+
+
+    
+
+{% endblock  %}
+
+{% block scripts %}
+    <script>
+        function deleteSubtask () {
+            Swal.fire({
+                title: '<strong>Are you sure to delete the Subtask?</strong>',
+                icon: 'info',
+                html:
+                '<a href="{% url 'subtask-delete' subtask.task.id subtask.id %}" class="btn btn-danger">Yes, Delete!</a>',
+                showCloseButton: true,
+                showCancelButton: false,
+                showConfirmButton: false,
+                focusConfirm: false,                
+            });
+        }
+    </script>
+{% endblock  %}

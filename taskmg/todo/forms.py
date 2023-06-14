@@ -4,9 +4,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.forms.widgets import PasswordInput, TextInput
 from django import forms
-from .models import Task, Note, Category
+from .models import Task, Note, Category, Subtask
 
 PRIORITY_CHOICES = [
+    ('', 'Select'),
     ('high', 'High'),
     ('low', 'Low'),
     ('medium', 'Medium')
@@ -105,4 +106,26 @@ class CategoryForm(forms.ModelForm):
             'description': forms.Textarea(attrs={
                 'class': 'form-control'
             })
+        }
+
+
+class SubtaskForm(forms.ModelForm):
+
+    class Meta:
+        model = Subtask
+        fields = ['name', 'content', 'deadline', 'priority',]
+        exclude = ['state', 'task']
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'content': forms.Textarea(attrs={
+                'class': 'form-control'
+            }),
+            'deadline': forms.DateTimeInput(attrs={
+                'class': 'form-control'
+            }),
+            'priority': forms.Select(attrs={
+                'class': 'form-control'
+            }, choices=PRIORITY_CHOICES)
         }

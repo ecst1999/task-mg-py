@@ -14,10 +14,6 @@ urlpatterns = [
 
     path('my-login', views.my_login, name='my-login'),
 
-    # ----------------------Dashboard a user--------------------------#
-
-    path('dashboard', views.dashboard, name='dashboard'),
-
     
     # ----------------------Logout a user--------------------------#
     
@@ -39,6 +35,20 @@ urlpatterns = [
 
     # Task delete 
     path('task-delete/<str:pk>', views.task_delete, name='task-delete'),
+
+    # --------------------------------SUBTASK------------------------------#
+
+    # Subtask detail
+    path('subtask/<str:pkT>/<str:pk>', views.subtask_detail, name='subtask-detail'),
+    
+    # SubTask Create
+    path('subtask-create/<str:pk>', views.subtask_create, name='subtask-create'),
+
+    # SubTask Edit
+    path('subtask-edit/<str:pkT>/<str:pk>', views.subtask_edit, name='subtask-edit'),
+
+    # Subtask Delete
+    path('subtask-delete/<str:pkT>/<str:pk>', views.subtask_delete, name='subtask-delete'),
 
 
     # --------------------------------NOTES------------------------------#
@@ -71,4 +81,12 @@ urlpatterns = [
 
     # Category delete
     path('category-delete/<str:pk>', views.category_delete, name='category-delete'),
+
+    # --------------------------------NOTIFICATIONS------------------------------#
+
+    # View Notifications
+    path('notifications', views.notifications, name='notifications'),
+
+    # Notificiation Detail
+    path('notification/<str:pk>', views.notification_detail, name='notification-detail'),
 ]
