@@ -194,7 +194,7 @@ def profileManagment(request):
 
     context = {'user_form': user_form, 'form2': form2}
 
-    return render(request, 'profile\profile-managment.html', context=context)
+    return render(request, 'profile/profile-managment.html', context=context)
 
 @login_required(login_url='my-login')
 def deteleAccount(request):
@@ -208,4 +208,4 @@ def deteleAccount(request):
 
         return redirect('')
     
-    return render(request, 'profile\delete-account.html')
+    return render(request, 'profile/delete-account.html')
