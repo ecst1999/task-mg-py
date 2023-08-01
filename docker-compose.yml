@@ -1,30 +1,30 @@
-version: '2'
+version: '3'
 
-services:
+services:  
+
+  db:
+    image: mariadb:11.0.2-jammy
+    restart: always    
+    environment:            
+      MARIADB_ROOT_PASSWORD: 12345
+      MARIADB_DATABASE: task
+      MARIADB_USER: task
+      MARIADB_PASSWORD: 12345
+    container_name: taskdb
+    volumes:
+      - db_data:/etc/mysql/conf.d
+
   app:
-    build: 
-      context: .
-      target: builder
-      dockerfile: Dockerfile
-
+    depends_on:
+      - db    
+    build: . 
+    command: python3 manage.py runserver 0.0.0.0:8080
     volumes:
       - .:/app
     container_name: taskmg
     ports:
       - 8080:8080
-
-  task-db:
-    image: mariadb:jammy
-    restart: always
-    environment:
-      - MARIADB_ROOT_PASSWORD=12345
-      - MARIADB_PASSWORD=12345
-      - MARIADB_USER=task
-      - MYSQL_DATABASE=task
-    container_name: task-db
-    volumes:
-      - task-db:/etc/mysql/conf.d
-
+  
 volumes:
-  task-db:
+  db_data:
     external: false
