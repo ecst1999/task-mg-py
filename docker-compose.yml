@@ -1,18 +1,16 @@
-version: '3'
+version: '3.8'
 
 services:  
 
   db:
-    image: mariadb:11.0.2-jammy
-    restart: always    
-    environment:            
-      MARIADB_ROOT_PASSWORD: 12345
-      MARIADB_DATABASE: task
-      MARIADB_USER: task
-      MARIADB_PASSWORD: 12345
-    container_name: taskdb
+    image: postgres:15
     volumes:
-      - db_data:/etc/mysql/conf.d
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=task_user
+      - POSTGRES_PASSWORD=task_pw
+      - POSTGRES_DB=task_db
+    container_name: taskdb
 
   app:
     depends_on:
@@ -24,7 +22,9 @@ services:
     container_name: taskmg
     ports:
       - 8080:8080
+    env_file:
+      - ./.env.dev
   
 volumes:
-  db_data:
+  postgres_data:
     external: false

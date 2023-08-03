@@ -1,16 +1,23 @@
-FROM python:3.9
+FROM python:3.11.4-slim-buster
+
+WORKDIR /app
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-RUN apt-get update \
-    && apt-get install -y default-libmysqlclient-dev build-essential \
-    && rm -rf /var/lib/apt/lists/*
+# install system dependencies
+RUN apt-get update && apt-get install -y netcat
 
-WORKDIR /app
-COPY requeriments.txt requeriments.txt
-RUN pip3 install -r requeriments.txt
+COPY requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
+
+# copy entrypoint.sh
+COPY ./entrypoint.sh .
+RUN sed -i 's/\r$//g' /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+
 COPY . .
 
 WORKDIR /app/taskmg
-# CMD ["python3", "manage.py", "runserver", "0.0.0.0:8080"]
+
+ENTRYPOINT ["/app/entrypoint.sh"]
