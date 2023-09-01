@@ -28,7 +28,9 @@ def register(request):
 
             form.save()
 
-            return HttpResponse('The user was registered!')
+            messages.success(request, "The user was registered!")
+
+            return redirect('my-login')
         
 
     context = {'form': form}
