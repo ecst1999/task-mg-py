@@ -29,7 +29,7 @@ class Task(models.Model):
     location = models.CharField(max_length=150, null=True)
     date_finished = models.DateTimeField(null=True)
     deadline = models.DateTimeField(null=True)
-    icon = models.CharField(max_length=25, null=True)
+    icon = models.CharField(max_length=25, blank=True)
     priority = models.CharField(max_length=250, default="Baja")
     state = models.BooleanField(default=True)
     status = models.ForeignKey(Status, on_delete=models.CASCADE, null=True)

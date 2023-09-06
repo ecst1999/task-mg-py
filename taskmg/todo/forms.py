@@ -33,27 +33,29 @@ class LoginForm(AuthenticationForm):
 
 # - Create a task
 
-class TaskForm(forms.ModelForm):
+class TaskForm(forms.ModelForm):    
 
     class Meta:
         model = Task
         fields = ['title', 'content', 'location', 'deadline', 'icon', 'priority', 'files', 'category', 'status']
-        exclude = ['user',]
+        exclude = ['user',]        
         widgets = {
             'title': forms.TextInput(attrs={
                 'class': 'form-control'
             }),
             'content': forms.Textarea(attrs={
-                'class': 'form-control'
+                'class': 'form-control'                        
             }),
             'location': forms.TextInput(attrs={
                 'class': 'form-control'
             }),
-            'deadline': forms.DateTimeInput(attrs={
-                'class': 'form-control'
+            'deadline': forms.DateInput(attrs={
+                'class': 'form-control',
+                'type': 'date'
             }),
-            'icon': forms.TextInput(attrs={
-                'class': 'form-control'
+            'icon': forms.TextInput( attrs={
+                'required': False,
+                'class': 'form-control',
             }),
             'priority': forms.Select(attrs={
                 'class': 'form-control'

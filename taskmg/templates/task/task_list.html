@@ -29,18 +29,22 @@
                 <div class="card" style="width: 18rem;">   
                     <div class="card-header text-center">
                         {{task.title}}
+                        {{task.icon}}
+
+                        <i class="fa-solid fa-circle-info"></i>
                     </div>
                     <div class="card-body">
                         <p class="card-text">{{task.content}}</p>
                         <a href="{% url 'task-detail' task.id %}" class="btn btn-primary">Task detail</a>
                     </div>
                     <div class="card-footer text-center text-muted">
-                        {{task.deadline}}
+                        {{task.deadline}}                                                                                                
+                        <span class="badge {{task.status.color}}">{{task.status}}</span>                                             
                     </div>
                 </div>
             </div>
 
-        {% endfor %}
+        {% endfor %}        
         
     </div>
     
